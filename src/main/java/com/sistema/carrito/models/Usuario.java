@@ -25,7 +25,7 @@ public class Usuario {
 	private String password;
 	
 	@OneToMany(mappedBy = "usuario")
-	private List<Productos> productos;
+	private List<Producto> productos;
 	
 	@OneToMany(mappedBy = "usuario")
 	private List<Orden> orden;
@@ -95,10 +95,10 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public List<Productos> getProductos() {
+	public List<Producto> getProductos() {
 		return productos;
 	}
-	public void setProductos(List<Productos> productos) {
+	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
 
