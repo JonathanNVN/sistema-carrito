@@ -1,15 +1,33 @@
 package com.sistema.carrito.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "detalles")
 public class DetalleOrden {
 	
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
 	private int cantidad;
 	private double precio;
-	private double total;
+	private double total;	
+	
+	@OneToOne
+	private Orden orden;
+	
+	@ManyToOne
+	private Productos productos;
 	
 	public DetalleOrden() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public DetalleOrden(Integer id, String nombre, int cantidad, double precio, double total) {
@@ -59,6 +77,22 @@ public class DetalleOrden {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}	
+
+	public Orden getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Orden orden) {
+		this.orden = orden;
+	}
+
+	public Productos getProductos() {
+		return productos;
+	}
+
+	public void setProductos(Productos productos) {
+		this.productos = productos;
 	}
 
 	@Override

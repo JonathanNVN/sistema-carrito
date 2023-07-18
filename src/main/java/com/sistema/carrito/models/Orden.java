@@ -2,12 +2,30 @@ package com.sistema.carrito.models;
 
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity	
+@Table(name = "orden")
 public class Orden {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY	)
 	private Integer id;
 	private String numero;
 	private Date fechaCreacion;
 	private Date fechaRecibida;
+	
+	@ManyToOne
+	private Usuario usuario;
+	
+	@OneToOne
+	private DetalleOrden detalleOrden;
 	
 	public Orden() {
 		// TODO Auto-generated constructor stub
@@ -51,6 +69,22 @@ public class Orden {
 
 	public void setFechaRecibida(Date fechaRecibida) {
 		this.fechaRecibida = fechaRecibida;
+	}	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}	
+
+	public DetalleOrden getDetalleOrden() {
+		return detalleOrden;
+	}
+
+	public void setDetalleOrden(DetalleOrden detalleOrden) {
+		this.detalleOrden = detalleOrden;
 	}
 
 	@Override
