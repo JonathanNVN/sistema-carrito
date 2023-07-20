@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.text.html.parser.DTD;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +83,30 @@ public class HomeController {
 		
 		orden.setTotal(sumTotal);
 		
+		model.addAttribute("carrito", detalles);
+		model.addAttribute("orden", orden);
+		
+		return "usuario/carrito";
+	}
+	
+	@GetMapping("/delete/carrito/{id}")
+	public String eliminarProductoCarrito(@PathVariable Integer id, Model model) {
+		
+		List<DetalleOrden> ordenNueva = new ArrayList<DetalleOrden>();
+		
+		for(DetalleOrden detalleOrden: detalles) {
+			
+			if(detalleOrden.getProductos().getId()!= id) {
+				ordenNueva.add(detalleOrden);
+			}
+		}
+		
+		detalles = ordenNueva; //Colocar la nueva lista con los productos restantes.
+		
+		double sumaTotal = 0;
+		sumaTotal = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
+		
+		orden.setTotal(sumaTotal);
 		model.addAttribute("carrito", detalles);
 		model.addAttribute("orden", orden);
 		
