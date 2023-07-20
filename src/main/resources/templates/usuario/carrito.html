@@ -30,7 +30,7 @@
 
       <!-- Page Heading/Breadcrumbs -->
       <h1 class="mt-4 mb-3">
-        Online Product Store <small>Mi carrito de compras</small>
+        Online Product Store: <small>Mi carrito de compras</small>
       </h1>
 
       <ol class="breadcrumb">
@@ -69,7 +69,7 @@
             <h2 class="card-title">SUBTOTAL</h2>
 
             <ul class="list-group">
-              <li class="list-group-item"><h5 th:text="${orden.total}">total</h5></li>
+              <li class="list-group-item"><h5 th:text="'S/ ' + ${orden.total}">total</h5></li>
               <a href="resumenorden.html" class="btn btn-dark">Ver Orden</a>
             </ul>
           </div>
