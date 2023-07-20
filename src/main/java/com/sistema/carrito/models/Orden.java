@@ -20,6 +20,7 @@ public class Orden {
 	private String numero;
 	private Date fechaCreacion;
 	private Date fechaRecibida;
+	private double total;
 	
 	@ManyToOne
 	private Usuario usuario;
@@ -31,13 +32,17 @@ public class Orden {
 		// TODO Auto-generated constructor stub
 	}
 		
-	public Orden(Integer id, String numero, Date fechaCreacion, Date fechaRecibida) {
+	public Orden(Integer id, String numero, Date fechaCreacion, Date fechaRecibida, double total, Usuario usuario,
+			DetalleOrden detalleOrden) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.fechaCreacion = fechaCreacion;
 		this.fechaRecibida = fechaRecibida;
-	}	
+		this.total = total;
+		this.usuario = usuario;
+		this.detalleOrden = detalleOrden;
+	}
 
 	public Integer getId() {
 		return id;
@@ -69,7 +74,15 @@ public class Orden {
 
 	public void setFechaRecibida(Date fechaRecibida) {
 		this.fechaRecibida = fechaRecibida;
-	}	
+	}
+	
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -90,7 +103,7 @@ public class Orden {
 	@Override
 	public String toString() {
 		return "Orden [id=" + id + ", numero=" + numero + ", fechaCreacion=" + fechaCreacion + ", fechaRecibida="
-				+ fechaRecibida + "]";
+				+ fechaRecibida + ", total=" + total + ", usuario=" + usuario + ", detalleOrden=" + detalleOrden + "]";
 	}
 	
 }
