@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sistema.carrito.models.DetalleOrden;
 import com.sistema.carrito.models.Orden;
 import com.sistema.carrito.models.Producto;
+import com.sistema.carrito.models.Usuario;
+import com.sistema.carrito.service.IUsuarioService;
 import com.sistema.carrito.service.ProductoService;
 
 @Controller
@@ -29,7 +31,10 @@ public class HomeController {
 	private final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
-	private ProductoService productoService;
+	private IUsuarioService iUsuarioService;
+	
+	@Autowired
+	private ProductoService productoService;	
 	
 	List<DetalleOrden> detalles = new ArrayList<DetalleOrden>(); //Almacenamos en una lista los detalles de la orden.
 	
@@ -130,7 +135,14 @@ public class HomeController {
 	}
 	
 	@GetMapping("/orden")
-	public String order() {
+	public String order(Model model) {
+		
+		Usuario usuario = iUsuarioService.findById(1).get();
+		
+		model.addAttribute("carrito", detalles);
+		model.addAttribute("orden", orden);
+		model.addAttribute("usuario", usuario);
+		
 		return "/usuario/resumenorden";
 	}
 	
