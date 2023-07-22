@@ -1,6 +1,7 @@
 package com.sistema.carrito.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,9 @@ import com.sistema.carrito.models.DetalleOrden;
 import com.sistema.carrito.models.Orden;
 import com.sistema.carrito.models.Producto;
 import com.sistema.carrito.models.Usuario;
+import com.sistema.carrito.repository.IOrdenRepository;
+import com.sistema.carrito.service.IDetalleOrdenService;
+import com.sistema.carrito.service.IOrdenService;
 import com.sistema.carrito.service.IUsuarioService;
 import com.sistema.carrito.service.ProductoService;
 
@@ -29,6 +33,12 @@ import com.sistema.carrito.service.ProductoService;
 public class HomeController {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+	
+	@Autowired
+	private IOrdenService iOrdenService;
+	
+	@Autowired
+	private IDetalleOrdenService detalleOrdenService;
 	
 	@Autowired
 	private IUsuarioService iUsuarioService;
@@ -146,4 +156,31 @@ public class HomeController {
 		return "/usuario/resumenorden";
 	}
 	
+	//Guardar la orden.
+	@GetMapping("/saveOrden")
+	public String saveOrden() {
+		
+		Date fechaCreacion = new Date();
+		
+		orden.setFechaCreacion(fechaCreacion);
+		orden.setNumero(iOrdenService.generarNumeroOrden());
+		
+		Usuario usuario = iUsuarioService.findById(1).get();
+		
+		orden.setUsuario(usuario);
+		iOrdenService.save(orden);
+		
+		//Guardando detalles.
+		for(DetalleOrden dt: detalles) {
+			
+			dt.setOrden(orden);
+			detalleOrdenService.save(dt);
+		}
+		
+		//Limpiar lista y ordenes.
+		orden = new Orden();
+		detalles.clear();
+		
+		return "redirect:/";
+	}
 }

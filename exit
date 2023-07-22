@@ -1,0 +1,24 @@
+[33m02da140[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m Implentar la funcionalidad de
+[33mffea21e[m Metodo para generar un numero en la orden
+[33md4ecb0a[m Creando los repositorios y las clases de servicio para la orden y el detalle orden
+[33m941ac90[m[33m ([m[1;31morigin/main[m[33m)[m Mostrar la información de usuario y el detalle del carrito en la vista resumenOrden
+[33m740a897[m Añadir la redirección de la vista resumenOrden
+[33mb48de2d[m Validación para no agregar el mismo producto al carrito de compras y direccionar desde la cabecera del template del usuario del menu opcion 'carrito'
+[33mf353c2a[m Funcionalidad para eliminar un producto en el carrito de compras
+[33m1b012fe[m Añadir los productos al carrito de compras y mostrarlo en la vista carrito.
+[33m03c20ff[m Obteniendo la cantidad y buscando el producto en la clase HomeControllerpara agregar al carrito.
+[33ma6fa5b8[m Redireccionar al carrito de compras.
+[33mb8a1de7[m Mostrar información del producto en la pagina productoHome
+[33m8416c1e[m Mostrando la vista del producto para usuario.
+[33mc3f35f9[m Template para el usuario
+[33m09a01f4[m Funcionalidad ver productos para usuario (metodo home, directorio y template home.html)
+[33m2c40b15[m Implementando las funciones de cargar imagenes y mostrar las imagenes para el administrador.
+[33mbd0ffac[m Implementación para guardar la imagen del producto.
+[33m77507e6[m Creando clase de servicio para subir una imagen al servidor.
+[33mfa9f384[m Funcionalidad para eliminar un registro producto
+[33m43fd01e[m Funcionalidad para editar productos
+[33m02442b1[m Funcionalidad para mostrar los productos para el administrador
+[33ma91c074[m Creando la funcionalidad 'Guardar producto', 'Vista Create' y 'Logger' para la clase 'Producto Controller'
+[33mafd4473[m Crear el repositorio, las clases de servicio y el metodo show de ProductoController
+[33mffce21b[m Crear las clases models, mapeo de entidades a las tablas con JPA, intregado de diseño y vistas al proyecto.
+[33m3fd3633[m[33m ([m[1;32mmaster[m[33m)[m creación de la estructura del proyecto y de las entidades
