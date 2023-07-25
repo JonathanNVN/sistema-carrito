@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
-	
+
 	private final Logger LOGGER = LoggerFactory.getLogger(UsuarioController.class);
 	
 	@Autowired
@@ -46,17 +46,17 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/acceder")
-	public String acceder(Usuario usuario, HttpSession httpSession) {
+	public String acceder(Usuario usuario, HttpSession session) {
 		
 		LOGGER.info("Accesos: {}", usuario);
-		
+	
 		Optional<Usuario> user = iUsuarioService.findByEmail(usuario.getEmail());
 		
 		//LOGGER.info("Usuario de la BD: {}", user.get());
 		
 			if(user.isPresent()) {
 				
-				httpSession.setAttribute("idUduario", user.get().getId());
+				session.setAttribute("idUsuario", user.get().getId());
 				
 					if(user.get().getTipo().equals("ADMIN")) {					
 						return "redirect:/administrador";

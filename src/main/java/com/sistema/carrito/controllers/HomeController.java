@@ -27,6 +27,8 @@ import com.sistema.carrito.service.IOrdenService;
 import com.sistema.carrito.service.IUsuarioService;
 import com.sistema.carrito.service.ProductoService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -50,7 +52,9 @@ public class HomeController {
 	Orden orden = new Orden(); //Datos de la orden.
 	
 	@GetMapping("")
-	public String home(Model model) {
+	public String home(Model model, HttpSession session) {
+		
+		LOGGER.info("Sesion del usuario: {}", session.getAttribute("idUsuario"));
 		
 		model.addAttribute("productos", productoService.findAll());
 		return "usuario/home";
@@ -144,9 +148,9 @@ public class HomeController {
 	}
 	
 	@GetMapping("/orden")
-	public String order(Model model) {
+	public String order(Model model, HttpSession session) {
 		
-		Usuario usuario = iUsuarioService.findById(1).get();
+		Usuario usuario = iUsuarioService.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
 		
 		model.addAttribute("carrito", detalles);
 		model.addAttribute("orden", orden);
@@ -157,20 +161,20 @@ public class HomeController {
 	
 	//Guardar la orden.
 	@GetMapping("/saveOrden")
-	public String saveOrden() {
+	public String saveOrden(HttpSession session) {
 		
 		Date fechaCreacion = new Date();
 		
 		orden.setFechaCreacion(fechaCreacion);
 		orden.setNumero(iOrdenService.generarNumeroOrden());
 		
-		Usuario usuario = iUsuarioService.findById(1).get();
+		Usuario usuario = iUsuarioService.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
 		
 		orden.setUsuario(usuario);
 		iOrdenService.save(orden);
 		
 		//Guardando detalles.
-		for(DetalleOrden dt: detalles) {
+		for(DetalleOrden dt:detalles) {
 			
 			dt.setOrden(orden);
 			detalleOrdenService.save(dt);
