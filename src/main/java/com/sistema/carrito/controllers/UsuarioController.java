@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -90,6 +91,22 @@ public class UsuarioController {
 		model.addAttribute("ordenes", ordenes);
 		
 		return "usuario/compras";
+	}
+	
+	@GetMapping("/detalles/{id}")
+	public String obtenerDetalleCompras(@PathVariable Integer id, Model model, HttpSession session) {
+		
+		
+		LOGGER.info("Id de la orden: {}", id);
+		
+		Optional<Orden> orden = iOrdenService.findById(id);
+		
+		model.addAttribute("detalles", orden.get().getDetalle());
+		
+		//Sesion
+		model.addAttribute("sesion", session.getAttribute("idUsuario"));	
+		
+		return "usuario/detallecompra";
 	}
 
 }
