@@ -1,5 +1,6 @@
 package com.sistema.carrito.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sistema.carrito.models.Orden;
 import com.sistema.carrito.models.Usuario;
+import com.sistema.carrito.service.IOrdenService;
 import com.sistema.carrito.service.IUsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +27,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private IUsuarioService iUsuarioService;
+	
+	@Autowired
+	private IOrdenService iOrdenService;
 	
 	@GetMapping("/registro")
 	public String create() {
@@ -77,6 +83,11 @@ public class UsuarioController {
 	public String obtenerCompras(Model model, HttpSession session) {
 		
 		model.addAttribute("sesion", session.getAttribute("idUsuario"));
+		
+		Usuario usuario = iUsuarioService.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
+		List<Orden> ordenes = iOrdenService.findByUsuario(usuario);
+		
+		model.addAttribute("ordenes", ordenes);
 		
 		return "usuario/compras";
 	}

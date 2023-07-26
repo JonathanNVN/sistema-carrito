@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sistema.carrito.models.Orden;
+import com.sistema.carrito.models.Usuario;
 import com.sistema.carrito.repository.IOrdenRepository;
 
 @Service
@@ -54,6 +55,11 @@ public class OrdenServiceImplement implements IOrdenService{
 			} //...
 		
 		return numConcat;
+	}
+
+	@Override
+	public List<Orden> findByUsuario(Usuario usuario) {
+		return iOrdenRepository.findByUsuario(usuario);
 	}
 
 }
